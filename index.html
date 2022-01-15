@@ -19,7 +19,7 @@
         </header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="#">
                     <img src="images/fpt.png" alt="" width="30" height="24">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -28,22 +28,31 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#"><span class="fas fa-info-circle"></span>
-                                Giới thiệu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><span class="fas fa-phone"></span> Liên hệ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><span class="fas fa-envelope"></span> Góp ý</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><span class="fas fa-question-circle"></span> Hỏi đáp</a>
-                        </li>
-                    </ul>
-                    <div class="col-md-2 navbar-nav d-flex">
+                    <div class="col-md-10">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="btn btn-outline-dark active" id="home-tab" data-bs-toggle="tab"
+                                    data-bs-target="#home" type="button" role="tab" aria-controls="home"
+                                    aria-selected="true"><span class="fas fa-home"></span> Trang chủ</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="btn btn-outline-dark" id="profile-tab" data-bs-toggle="tab"
+                                    data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
+                                    aria-selected="false"><span class="fas fa-info-circle"></span> Giới thiệu</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="btn btn-outline-dark" id="contact-tab" data-bs-toggle="tab"
+                                    data-bs-target="#contact" type="button" role="tab" aria-controls="contact"
+                                    aria-selected="false"><span class="fas fa-phone"></span> Liên hệ</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="btn btn-outline-dark" id="feedBack-tab" data-bs-toggle="tab"
+                                    data-bs-target="#feedBack" type="button" role="tab" aria-controls="contact"
+                                    aria-selected="false"><span class="fas fa-envelope"></span> Góp ý</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 navbar-nav d-flex flex-row">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -73,74 +82,364 @@
         </nav>
         <div class="row">
             <article class="col-md-9">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-6 mt-3">
-                        <div class="card text-center">
-                            <p class="card-header">
-                                Lập trình Android nâng cao
-                            </p>
-                            <div class="card-body">
-                                <img src="images/logos/ADAV.jpg" alt="" class="card-img-top w-50">
+                <div class="tab-content" id="nav-tabContent">
+                    <!--home-->
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-6 mt-3">
+                                <div class="card text-center">
+                                    <p class="card-header">
+                                        Lập trình Android nâng cao
+                                    </p>
+                                    <div class="card-body">
+                                        <img src="images/logos/ADAV.jpg" alt="" class="card-img-top w-50">
+                                    </div>
+                                    <a href="#" class="btn btn-primary">Học ngay</a>
+                                </div>
                             </div>
-                            <a href="#" class="btn btn-primary">Học ngay</a>
+                            <div class="col-md-6 mt-3">
+                                <div class="card text-center">
+                                    <p class="card-header">
+                                        Xây dựng trang Web
+                                    </p>
+                                    <div class="card-body">
+                                        <img src="images/logos/WEBU.jpg" alt="" class="card-img-top w-50">
+                                    </div>
+                                    <a href="#" class="btn btn-primary">Học ngay</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center mt-3">
+                            <div class="col-md-6 mt-3">
+                                <div class="card text-center">
+                                    <p class="card-header">
+                                        Cơ sở dữ liệu
+                                    </p>
+                                    <div class="card-body">
+                                        <img src="images/logos/DBBS.png" alt="" class="card-img-top w-50">
+                                    </div>
+                                    <a href="#" class="btn btn-primary">Học ngay</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <div class="card text-center">
+                                    <p class="card-header">
+                                        SQL Sever
+                                    </p>
+                                    <div class="card-body">
+                                        <img src="images/logos/DBAV.png" alt="" class="card-img-top w-50">
+                                    </div>
+                                    <a href="#" class="btn btn-primary">Học ngay</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link link-dark" href="#" aria-label="Previous">
+                                            <span class="fas fa-backward"></span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link link-dark" href="#"><span
+                                                class="fas fa-backward-step"></span></a></li>
+                                    <li class="page-item"><a class="page-link link-dark" href="#"><span
+                                                class="fas fa-forward-step"></span></a></li>
+                                    <li class="page-item">
+                                        <a class="page-link link-dark" href="#" aria-label="Next">
+                                            <span class="fas fa-forward"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
-                    <div class="col-md-6 mt-3">
-                        <div class="card text-center">
-                            <p class="card-header">
-                                Xây dựng trang Web
-                            </p>
-                            <div class="card-body">
-                                <img src="images/logos/WEBU.jpg" alt="" class="card-img-top w-50">
+                    <!--giới thiệu-->
+                    <div class="tab-pane fade mt-3" id="profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <h4 class="text-center text-danger fw-bold ">Giới Thiệu Chung</h4>
+                        <hr class="text-secondary">
+                        <div>
+                            <p> &emsp;&emsp;Chào mừng các bạn đến với website học lập trình online <span
+                                    class="text-warning">Online Training!</span> Đây là một
+                                website tích hợp đươc phát triển bởi Trịnh Tiến Lực nhắm giúp đỡ mọi người có thể
+                                học lập trình
+                                miễn phí trong mùa dịch này. Hiện website có gần 20 khoá học lập trình khác nhau và
+                                đang liên
+                                tục được cập. Danh sách các khoá học
+                                <button class="btn btn-outline-info" data-bs-toggle="collapse"
+                                    data-bs-target="#danhSach">Tại
+                                    đây</button>
+                            <div class="collapse" id="danhSach">
+                                <div class="collapse-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item" href="#">Lập trình Android nâng cao</li>
+                                        <li class="list-group-item" href="#">Xây dựng trang Web</li>
+                                        <li class="list-group-item" href="#">Cơ sở dữ liệu</li>
+                                        <li class="list-group-item" href="#">SQL Sever</li>
+                                        <li class="list-group-item" href="#">Internet Marketing</li>
+                                        <li class="list-group-item" href="#">Lập trình hướng đối tượng với Java<span
+                                                class="badge btn-danger">Hot</span></li>
+                                        <li class="list-group-item" href="#">Lập trình PHP</li>
+                                        <li class="list-group-item" href="#">Điện toán đám mây</li>
+                                        <li class="list-group-item" href="#">Lập trình Android cơ bản</li>
+                                        <li class="list-group-item" href="#">Lập trình game 2D</li>
+                                        <li class="list-group-item" href="#">Thiết kế giao diện trên Android</li>
+                                        <li class="list-group-item" href="#">Thiết kế Web cho điện thoại di
+                                            động<span class="badge btn-danger">New</span></li>
+                                        <li class="list-group-item" href="#">Lập trình ASP.NET <span
+                                                class="badge btn-danger">New</span></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <a href="#" class="btn btn-primary">Học ngay</a>
+                            </p>
+                            <p> &emsp;&emsp;Chúc mọi người cùng học lập trình vui vẻ ! <span
+                                    class="fas fa-smile"></span></p>
+                            <p> &emsp;&emsp;Thông tin về tác giả
+                                <button class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#tacGia">Tại
+                                    đây
+                                </button>
+                            <div class="collapse" id="tacGia">
+                                <div class="collapse-body">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-md-7">
+                                            <div class="card p-3 py-4">
+                                                <div class="text-center"> <img src="images/avata.jpg"
+                                                        class="w-25 rounded-circle" data-toggle="tooltip"
+                                                        data-placement="top" title="Tác giả lười quá không để avatar">
+                                                </div>
+                                                <div class="text-center mt-3"> <span
+                                                        class="bg-secondary p-1 px-4 rounded text-white">Pro</span>
+                                                    <h5 class="mt-2 mb-0">Trịnh Tiến Lực</h5> <span>FPT
+                                                        Polytechnic</span>
+                                                    <div class="justify-content-center">
+                                                        <a href="https://www.facebook.com/Trinhtienluc234/"
+                                                            target="_blank"
+                                                            class="btn btn-outline-primary px-4">FaceBook</a>
+                                                        <a href="https://github.com/luctrinh02/assigment"
+                                                            target="_blank"
+                                                            class="btn btn-outline-secondary px-4 ms-3">Github</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </p>
                         </div>
                     </div>
-                </div>
-                <div class="row d-flex justify-content-center mt-3">
-                    <div class="col-md-6 mt-3">
-                        <div class="card text-center">
-                            <p class="card-header">
-                                Cơ sở dữ liệu
-                            </p>
-                            <div class="card-body">
-                                <img src="images/logos/DBBS.png" alt="" class="card-img-top w-50">
-                            </div>
-                            <a href="#" class="btn btn-primary">Học ngay</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <div class="card text-center">
-                            <p class="card-header">
-                                SQL Sever
-                            </p>
-                            <div class="card-body">
-                                <img src="images/logos/DBAV.png" alt="" class="card-img-top w-50">
-                            </div>
-                            <a href="#" class="btn btn-primary">Học ngay</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center mt-3">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link link-dark" href="#" aria-label="Previous">
-                                    <span class="fas fa-backward"></span>
-                                </a>
+                    <!--liên hệ-->
+                    <div class="tab-pane fade mt-3" id="contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <h4 class="text-center text-danger fw-bold ">Thông Tin Liên Hệ</h4>
+                        <hr class="text-secondary">
+                        <ul class="nav nav-tabs" id="second-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link link-dark active" id="haNoi-tab" data-bs-toggle="tab"
+                                    data-bs-target="#haNoi" type="button" role="tab" aria-controls="haNoi"
+                                    aria-selected="true">Hà Nội</button>
                             </li>
-                            <li class="page-item"><a class="page-link link-dark" href="#"><span
-                                        class="fas fa-backward-step"></span></a></li>
-                            <li class="page-item"><a class="page-link link-dark" href="#"><span
-                                        class="fas fa-forward-step"></span></a></li>
-                            <li class="page-item">
-                                <a class="page-link link-dark" href="#" aria-label="Next">
-                                    <span class="fas fa-forward"></span>
-                                </a>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link link-dark" id="daNang-tab" data-bs-toggle="tab"
+                                    data-bs-target="#daNang" type="button" role="tab" aria-controls="daNang"
+                                    aria-selected="false">Đà Nẵng</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link link-dark" id="tayNguyen-tab" data-bs-toggle="tab"
+                                    data-bs-target="#tayNguyen" type="button" role="tab" aria-controls="tayNguyen"
+                                    aria-selected="false">Tây Nguyên</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link link-dark" id="hcm-tab" data-bs-toggle="tab"
+                                    data-bs-target="#hcm" type="button" role="tab" aria-controls="hcm"
+                                    aria-selected="false">TP. Hồ Chí Minh</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link link-dark" id="tayNguyen-tab" data-bs-toggle="tab"
+                                    data-bs-target="#canTho" type="button" role="tab" aria-controls="canTho"
+                                    aria-selected="false">Cần Thơ</button>
                             </li>
                         </ul>
-                    </nav>
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="haNoi" role="tabpanel">
+                                <div class="row">
+                                    <h5 class="text-warning text-center mt-2">Cơ Sở Hà Nội</h5>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <p><span class="fw-bold">Địa chỉ: </span>tòa nhà FPT Polytechnic, đường Trịnh
+                                            Văn Bô, Phương Canh, Nam Từ Liêm, Hà Nội</p>
+                                        <p><span class="fw-bold">Điện thoại liên hệ </span>Phòng Tư vấn tuyển sinh:</p>
+                                        <ul>
+                                            <li>Tư vấn 1: (024) 8582 0808</li>
+                                            <li>Tư vấn 2: (024) 6684 0713</li>
+                                            <li>Tư vấn 3: 0988 866 377</li>
+                                        </ul>
+                                        <p>Email phòng tuyển sinh: caodangfpt.hn@fpt.edu.vn</p>
+                                        <div>
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.8638558814587!2d105.74459841533215!3d21.038132792833153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313454b991d80fd5%3A0x53cefc99d6b0bf6f!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1642260627686!5m2!1svi!2s"
+                                                width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="daNang" role="tabpanel">
+                                <div class="row">
+                                    <h5 class="text-warning text-center mt-2">Cơ Sở Đà Nẵng</h5>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <p><span class="fw-bold">Địa chỉ: </span>137 Nguyễn Thị Thập, Phường Hòa Minh,
+                                            Quận Liên Chiểu, TP. Đà Nẵng</p>
+                                        <p><span class="fw-bold">Điện thoại liên hệ </span>Phòng Tư vấn tuyển sinh:
+                                            (023) 6371 0999</p>
+                                        <p>Email phòng tuyển sinh: caodangfpt.hn@fpt.edu.vn</p>
+                                        <div>
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.802446509126!2d108.16776031528876!3d16.075738143532405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314218e6e07b1c3f%3A0x459e4bf5a2af323e!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYyDEkMOgIE7hurVuZw!5e0!3m2!1svi!2s!4v1642261111457!5m2!1svi!2s"
+                                                width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tayNguyen" role="tabpanel">
+                                <div class="row">
+                                    <h5 class="text-warning text-center mt-2">Cơ Sở Tây Nguyên</h5>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <p><span class="fw-bold">Địa chỉ: </span>Tổ dân phố 8, P. Tân An, TP. Buôn Ma
+                                            Thuột, Tỉnh Đắk Lắk</p>
+                                        <p><span class="fw-bold">Điện thoại liên hệ </span>Phòng Tư vấn tuyển sinh:
+                                            (026) 2355 5678</p>
+                                        <p>Email phòng tuyển sinh: caodangfpt.tn@fpt.edu.vn</p>
+                                        <div>
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3892.0544382301077!2d108.07288781526857!3d12.70986992400508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3171f7d129f29e75%3A0x4a950c104f61c8bb!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIHRo4buxYyBow6BuaCBGUFQgUG95dGVjaG5pYyBUw6J5IE5ndXnDqm4!5e0!3m2!1svi!2s!4v1642261840549!5m2!1svi!2s"
+                                                width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="hcm" role="tabpanel">
+                                <div class="row">
+                                    <h5 class="text-warning text-center mt-2">Cơ Sở TP. Hồ Chí Minh</h5>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <p><span class="fw-bold">Địa chỉ: </span>
+                                        <ul>
+                                            <li>Cơ sở Q.Phú Nhuận: 778/B1 Nguyễn Kiệm, Phường 4, Quận Phú Nhuận, TP Hồ
+                                                Chí Minh</li>
+                                            <li>Cơ sở Q.12: Lô 24, Công viên phần mềm Quang Trung, Quận 12, TP Hồ Chí
+                                                Minh</li>
+                                            <li>Cơ sở Q.3: 391A Nam Kỳ Khởi Nghĩa, Phường 7, Quận 3, TP Hồ Chí Minh</li>
+                                        </ul>
+                                        </p>
+                                        <p><span class="fw-bold">Điện thoại liên hệ </span>Phòng Tư vấn tuyển sinh:
+                                            (028) 6252 3434 hoặc 0901 660 002</p>
+                                        <p>Email phòng tuyển sinh: caodangfpt.tphcm@fpt.edu.vn</p>
+                                        <div>
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3918.9931836750516!2d106.679986!3d10.811833!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf872809fb8deded!2sFPT%20Polytechnic%20Colleges!5e0!3m2!1sen!2sus!4v1642262042101!5m2!1sen!2sus"
+                                                width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="canTho" role="tabpanel">
+                                <div class="row">
+                                    <h5 class="text-warning text-center mt-2">Cơ Sở Cần Thơ</h5>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <p><span class="fw-bold">Địa chỉ: </span>Số 288, Nguyễn Văn Linh, phường An
+                                            Khánh, quận Ninh Kiều, Tp. Cần Thơ.</p>
+                                        <p><span class="fw-bold">Điện thoại liên hệ </span>Phòng Tư vấn tuyển sinh: 0901
+                                            759 222</p>
+                                        <p>Email phòng tuyển sinh: caodangfpt.dn@fpt.edu.vn</p>
+                                        <div>
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.877484701979!2d105.75496921525776!3d10.026967675319368!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a088476bafffdf%3A0x4da67960eb05332d!2zVHLGsOG7nW5nIENhbyDEkOG6s25nIFRo4buxYyBIw6BuaCBGUFQgUG9seXRlY2huaWMgQ-G6p24gVGjGoQ!5e0!3m2!1sen!2sus!4v1642262209425!5m2!1sen!2sus"
+                                                width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--góp ý-->
+                    <div class="tab-pane fade mt-3" id="feedBack" role="tabpanel" aria-labelledby="nav-feedBack-tab">
+                        <div class="row">
+                            <form action="">
+                                <div class="card">
+                                    <h5 class="card-header">
+                                        <span class="fas fa-pen-to-square"></span>
+                                        Biểu mẫu góp ý
+                                    </h5>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="hoTen" class="fw-bold">Họ tên<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" id="hoTen" class="form-control">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="mail" class="fw-bold">Email<span
+                                                        class="text-danger">*</span></label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text" class="form-control">
+                                                    <select class="input-group-text">
+                                                        <option value="op1">@fpt.edu.vn</option>
+                                                        <option value="op2">@gmail.com</option>
+                                                        <option value="op3">@outlook.com</option>
+                                                        <option value="op4">none</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="loi" class="fw-bold">Chọn lỗi<span
+                                                        class="text-danger">*</span></label>
+                                                <select id="loi" class="form-select">
+                                                    <option value="cn">Chức năng</option>
+                                                    <option value="ht">Hiển thị</option>
+                                                    <option value="tk">Tài khoản</option>
+                                                    <option value="bh">Bài học</option>
+                                                    <option value="k">Khác</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="loi" class="fw-bold">Lỗi khác</label>
+                                                <input type="text" id="hoTen" class="form-control" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label for="loi" class="fw-bold">Chọn file</label>
+                                            <div>
+                                                <input type="file" id="hoTen" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label for="chiTiet" class="fw-bold">Chi tiết</label>
+                                            <div>
+                                                <textarea id="chiTiet" rows="5" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-end">
+                                            <button class="btn btn-secondary m-2">Huỷ</button>
+                                            <button class="btn btn-primary m-2">Gửi</button>
+                                            <button class="btn btn-success m-2">Mới</button>
+                                        </div>
+                                    </div>
+                                    <small class="card-footer"><i>* là trường bắt buộc</i></small>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+
             </article>
             <aside class="col-md-3 mt-3">
                 <div class="card">
@@ -166,7 +465,7 @@
                 </div>
             </aside>
         </div>
-        <footer>
+        <footer class="mt-3">
             <div class="d-flex align-items-center justify-content-center bg-secondary">
                 <img src="images/fpt.png" alt="">&nbsp;
                 <span class="text-l">Trịnh Tiến Lực PH17307</span>
