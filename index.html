@@ -31,22 +31,22 @@
                     <div class="col-md-10">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button class="btn btn-light active" id="home-tab" data-bs-toggle="tab"
+                                <button class="nav-link link-secondary active" id="home-tab" data-bs-toggle="tab"
                                     data-bs-target="#home" type="button" role="tab" aria-controls="home"
                                     aria-selected="true"><span class="fas fa-home"></span> Trang chủ</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="btn btn-light" id="profile-tab" data-bs-toggle="tab"
+                                <button class="nav-link link-secondary" id="profile-tab" data-bs-toggle="tab"
                                     data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
                                     aria-selected="false"><span class="fas fa-info-circle"></span> Giới thiệu</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="btn btn-light" id="contact-tab" data-bs-toggle="tab"
+                                <button class="nav-link link-secondary" id="contact-tab" data-bs-toggle="tab"
                                     data-bs-target="#contact" type="button" role="tab" aria-controls="contact"
                                     aria-selected="false"><span class="fas fa-phone"></span> Liên hệ</button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button class="btn btn-light" id="feedBack-tab" data-bs-toggle="tab"
+                                <button class="nav-link link-secondary" id="feedBack-tab" data-bs-toggle="tab"
                                     data-bs-target="#feedBack" type="button" role="tab" aria-controls="contact"
                                     aria-selected="false"><span class="fas fa-envelope"></span> Góp ý</button>
                             </li>
@@ -60,21 +60,31 @@
                                 Tài khoản
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#"><span class="fas fa-add"></span> Đăng ký</a></li>
-                                <li><a class="dropdown-item" href="#"><span class="fas fa-sign-in"></span> Đăng nhập</a>
+                                <li>
+                                    <button class="btn dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#dangKy"><span class="fas fa-add"></span> Đăng
+                                        ký</button>
                                 </li>
-                                <li><a class="dropdown-item" href="#"><span class="fas fa-key"></span> Quên mật khẩu</a>
+                                <li><button class="btn dropdown-item" data-bs-toggle="modal" data-bs-target="#dangNhap">
+                                        <span class="fas fa-sign-in"></span> Đăng nhập
+                                    </button>
+                                </li>
+                                <li><button class="btn dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#quenMatKhau"><span class="fas fa-key"></span> Quên mật
+                                        khẩu</button>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#"><span class="fas fa-sign-out"></span> Đăng
-                                        xuất</a>
+                                <li><button class="btn dropdown-item"><span class="fas fa-sign-out"></span> Đăng
+                                        xuất</button>
                                 </li>
-                                <li><a class="dropdown-item" href="#"><span class="fas fa-repeat"></span> Đổi mật
-                                        khẩu</a>
+                                <li><button class="btn dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#doiMatKhau"><span class="fas fa-repeat"></span> Đổi mật
+                                        khẩu</button>
                                 </li>
-                                <li><a class="dropdown-item" href="#"><span class="fas fa-file"></span> Cập nhật tài
+                                <li><button class="btn dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#capNhat"><span class="fas fa-file"></span> Cập nhật tài
                                         khoản</a>
                                 </li>
                             </ul>
@@ -504,6 +514,270 @@
                 }(document, 'script', 'facebook-jssdk'));
             </script>
         </footer>
+        <!--modal Đăng ký-->
+        <div class="modal fade" id="dangKy" tabindex="-1" aria-labelledby="modalDangKy" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modelDangKy"><span class="fas fa-sign"></span> Đăng ký
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div align="center">
+                                <img src="images/fpt.png" alt="">
+                                <h3>Đăng Ký Tài Khoản</h3>
+                                <small>Tham gia và học tập</small>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mt-2">
+                                    <label for="name">Họ của bạn <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="name">
+                                </div>
+                                <div class="col-md-6 mt-2">
+                                    <label for="ho">Tên của bạn <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="ho">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="mail">Email <span class="text-danger">*</span></label>
+                                <div>
+                                    <input type="email" class="form-control" id="mail">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="pass">Mật khẩu <span class="text-danger">*</span></label>
+                                <div>
+                                    <input type="password" class="form-control" id="pass">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="xacNhan">Xác nhận mật khẩu <span class="text-danger">*</span></label>
+                                <div>
+                                    <input type="password" class="form-control" id="xacNhan">
+                                </div>
+                            </div>
+                            <div class="mt-2 form-check">
+                                <input type="checkbox" class="form-check-input" id="check" value="" checked>
+                                <label for="check" class="form-check-label"><small>Tôi đồng ý với mọi <a href="#">điều
+                                            khoản dịch vụ</a></small></label>
+                            </div>
+                            <div class="row">
+                                <small>Bạn đã có tài khoản? <a data-bs-dismiss="modal" data-bs-toggle="modal"
+                                        href="#dangNhap"><small>Đăng nhập
+                                            ngay!</small></a></small>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ
+                                bỏ</button>
+                            <button type="button" class="btn btn-primary">Đăng ký</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--modal Đăng Nhập-->
+        <div class="modal fade" id="dangNhap" tabindex="-1" aria-labelledby="modelDangNhap" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="DangNhapLabel"><span class="fas fa-right-to-bracket"></span>
+                                Đăng nhập
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div align="center">
+                                <img src="images/fpt.png" alt="">
+                            </div>
+                            <div class="mt-5">
+                                <label for="emailDangNhap">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="emailDangNhap">
+                            </div>
+                            <div class="mt-2">
+                                <label for="passDangNhap">Mật khẩu <span class="text-danger">*</span></label>
+                                <input type="password" class="form-control" id="passDangNhap">
+                            </div>
+                            <div>
+                                <a data-bs-dismiss="modal" data-bs-toggle="modal" href="#quenMatKhau"><small>Quên mật
+                                        khẩu?</small></a>
+                            </div>
+                            <div>
+                                <small>Chưa có tài khoản?<a data-bs-dismiss="modal" data-bs-toggle="modal"
+                                        href="#dangKy"><small> Đăng ký ngay</small></a></small>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Đăng nhập</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--modal quên mật khẩu-->
+        <div class="modal fade" id="quenMatKhau" tabindex="-1" aria-labelledby="modelQuenMatKhau" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="QuenMatKhauLabel"><span class="fas fa-question"></span> Quên mật
+                                khẩu
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div align="center">
+                                <img src="images/fpt.png" alt="">
+                                <div>
+                                    <small class="mt-3">Nhập email tại đây. Chúng tôi sẽ gửi mã xác nhận đến email của
+                                        bạn</small>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <label for="emailQMK">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="emailQMK">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ bỏ</button>
+                            <button type="button" class="btn btn-primary">Xác nhận</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--modal đổi mật khẩu-->
+        <div class="modal fade" id="doiMatKhau" tabindex="-1" aria-labelledby="modelDoiMatKhau" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="doiMatKhauLabel"><span class="fas fa-user-alt-slash"></span>
+                                Đổi mật khẩu
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div align="center">
+                                <img src="images/fpt.png" alt="">
+                            </div>
+                            <div class="row mt-2">
+                                <label for="passCu">Mật khẩu cũ <span class="text-danger">*</span></label>
+                                <div>
+                                    <input type="password" class="form-control" id="passCu">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="passMoi">Mật khẩu mới <span class="text-danger">*</span></label>
+                                <div>
+                                    <input type="password" class="form-control" id="passMoi">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="xnPassMoi">Xác nhận mật khẩu <span class="text-danger">*</span></label>
+                                <div>
+                                    <input type="password" class="form-control" id="xnPassMoi">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ bỏ</button>
+                            <button type="button" class="btn btn-primary">Xác nhận</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--modal cập nhật tài khoản-->
+        <div class="modal fade" id="capNhat" tabindex="-1" aria-labelledby="modelCapNhat" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="capNhatLabel"><span class="fas fa-sign"></span> Cập nhật tài khoản
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div align="center">
+                                <img src="images/fpt.png" alt="">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mt-2">
+                                    <label for="nameTt">Họ của bạn <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="nameTt">
+                                </div>
+                                <div class="col-md-6 mt-2">
+                                    <label for="hoTt">Tên của bạn <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="hoTt">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="anh">Ảnh đại diện</label>
+                                <div>
+                                    <input type="file" class="form-control" id="anh">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="mailTt">Email <span class="text-danger">*</span></label>
+                                <div>
+                                    <input type="email" class="form-control" id="mailTt">
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="dthoai">Điện thoại</label>
+                                <div>
+                                    <input type="tel" class="form-control" id="dthoai">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mt-2">
+                                    <label for="ngaySinh">Ngày sinh</label>
+                                    <input type="date" class="form-control" id="ngaySinh">
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <label for="gt">Giới tính</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nam" value="nam">
+                                    <label class="form-check-label" for="nam">Nam</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nu" value="nu">
+                                    <label class="form-check-label" for="nu">Nu</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="khac" value="khac">
+                                    <label class="form-check-label" for="khac">Khác</label>
+                                  </div>
+                            </div>
+                            <div>
+                                <label for="nganh">Ngành nghề</label>
+                                <select id="nganh">
+                                    <option selected disabled>--Chọn ngành--</option>
+                                    <option value="hs">Học sinh</option>
+                                    <option value="sv">Sinh viên</option>
+                                    <option value="cn">Đã đi làm</option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <label for="moTa">Mô tả bản thân </label>
+                                <div>
+                                    <textarea id="moTa" rows="5" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Lưu</button>
+                            <button type="button" class="btn btn-primary">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <!--script-->
     <script src="js/jquery.min.js"></script>
