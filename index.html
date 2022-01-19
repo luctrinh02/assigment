@@ -15,7 +15,29 @@
 <body>
     <div class="container">
         <header class="row">
-            <img src="images/banner.png" alt="">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="images/banner.png" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/banner2.png" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/banner3.png" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
         </header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -28,7 +50,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="col-md-10">
+                    <div class="col-lg-10">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link link-secondary active" id="home-tab" data-bs-toggle="tab"
@@ -52,7 +74,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-2 navbar-nav d-flex">
+                    <div class="col-lg-2 navbar-nav d-flex">
                         <div class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -697,7 +719,8 @@
                 <div class="modal-content">
                     <form action="">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="capNhatLabel"><span class="fas fa-sign"></span> Cập nhật tài khoản
+                            <h5 class="modal-title" id="capNhatLabel"><span class="fas fa-sign"></span> Cập nhật tài
+                                khoản
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
@@ -742,17 +765,20 @@
                             <div class="mt-2">
                                 <label for="gt">Giới tính</label>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nam" value="nam">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nam"
+                                        value="nam">
                                     <label class="form-check-label" for="nam">Nam</label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nu" value="nu">
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nu"
+                                        value="nu">
                                     <label class="form-check-label" for="nu">Nu</label>
-                                  </div>
-                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="khac" value="khac">
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="khac"
+                                        value="khac">
                                     <label class="form-check-label" for="khac">Khác</label>
-                                  </div>
+                                </div>
                             </div>
                             <div>
                                 <label for="nganh">Ngành nghề</label>
