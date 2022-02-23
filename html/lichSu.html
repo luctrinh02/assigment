@@ -1,0 +1,27 @@
+<div class="card mt-3">
+    <h4 class="card-header text-success">
+        Lịch sử làm bài
+    </h4>
+    <div class="card-body">
+        <div class="table-responsive" ng-show="$parent.student.marks.length!=0">
+            <table class="table table-hover m-0 p-0">
+                <thead>
+                    <th>Thời gian</th>
+                    <th>Bài thi</th>
+                    <th>Điểm số</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="mark in $parent.student.marks">
+                        <td>{{mark.date}}</td>
+                        <td>{{mark.name}}</td>
+                        <td>{{mark.mark}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h1 class="text-danger" ng-show="$parent.student.marks.length==0">Bạn chưa làm bài nào cả hicc :((</h1>
+    </div>
+    <div class="card-footer">
+        {{$parent.student.fullname}}
+    </div>
+</div>

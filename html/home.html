@@ -1,0 +1,25 @@
+<div class="row">
+    <div ng-repeat="s in subjects |limitTo:4:begin" class="col-md-6 mt-3">
+        <div class="card text-center">
+            <p class="card-header">
+                {{s.Name}}
+            </p>
+            <div class="card-body">
+                <img src="images/logos/{{s.Logo}}" class="card-img-top w-50">
+            </div>
+            <a href="#quiz/{{s.Id}}" class="btn btn-primary" ng-class="{disabledLink: !isLogin || student.role==0}">Học ngay</a>
+        </div>
+    </div>
+</div>
+<div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-primary me-3" ng-click="first()" ng-disabled="page==0">
+        <span class="fas fa-backward"></span>
+    </button>
+    <button class="btn btn-primary me-3" ng-click="prev()" ng-disabled="page==0"><span
+            class="fas fa-backward-step"></span></button>
+    <button class="btn btn-primary me-3" ng-click="next()" ng-disabled="page==maxPage"><span
+            class="fas fa-forward-step"></span></button>
+    <button class="btn btn-primary" ng-click="last()" ng-disabled="page==maxPage">
+        <span class="fas fa-forward"></span>
+    </button>
+</div>

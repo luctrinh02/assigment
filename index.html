@@ -10,11 +10,37 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/all.min.css">
     <link rel="icon" href="images/fpt.png">
+    <style>
+        .disabledLink {
+            color: #ccc;
+            pointer-events: none;
+        }
+
+        .loading {
+            background: rgba(0, 0, 0, .5);
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+        }
+
+        .spinner-center {
+            top: 50%;
+            left: 50%;
+            position: absolute;
+        }
+    </style>
     <!--style-->
 </head>
 
-<body>
-    <div class="container">
+<body ng-app="myApp">
+    <div class="container" ng-controller="control">
+        <div ng-show="isLoading" class="loading">
+            <div class="spinner-border text-primary spinner-center" role="status">
+            </div>
+        </div>
         <header class="row">
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
                 <div class="carousel-inner">
@@ -42,7 +68,7 @@
         </header>
         <nav class="navbar navbar-expand-md navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="#home">
                     <img src="images/fpt.png" alt="" width="30" height="24">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -53,18 +79,24 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="index.html"><span class="fas fa-home"></span>
+                            <a class="nav-link" aria-current="page" href="#home"><span class="fas fa-home"></span>
                                 Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="html/info.html"><span class="fas fa-info-circle"></span>
+                            <a class="nav-link" href="#info"><span class="fas fa-info-circle"></span>
                                 Giới thiệu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="html/contact.html"><span class="fas fa-phone"></span> Liên hệ</a>
+                            <a class="nav-link" href="#contact"><span class="fas fa-phone"></span> Liên hệ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="html/mail.html"><span class="fas fa-envelope"></span> Góp ý</a>
+                            <a class="nav-link" href="#mail"><span class="fas fa-envelope"></span> Góp ý</a>
+                        </li>
+                        <li class="nav-item" ng-show="student.role==0">
+                            <a class="nav-link " href="#taiKhoan">
+                                <span class="fas fa-circle-check"></span>
+                                Quản lý
+                            </a>
                         </li>
                     </ul>
                     <div class="col-md-2 navbar-nav d-flex">
@@ -72,35 +104,37 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="fas fa-user"></span>
-                                Tài khoản
+                                {{taiKhoan}}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
+                                <li ng-hide="isLogin">
                                     <button class="btn dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#dangKy"><span class="fas fa-add"></span> Đăng
                                         ký</button>
                                 </li>
-                                <li><button class="btn dropdown-item" data-bs-toggle="modal" data-bs-target="#dangNhap">
+                                <li ng-hide="isLogin"><button class="btn dropdown-item" data-bs-toggle="modal"
+                                        data-bs-target="#dangNhap">
                                         <span class="fas fa-sign-in"></span> Đăng nhập
                                     </button>
                                 </li>
-                                <li><button class="btn dropdown-item" data-bs-toggle="modal"
+                                <li ng-hide="isLogin"><button class="btn dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#quenMatKhau"><span class="fas fa-key"></span> Quên mật
                                         khẩu</button>
                                 </li>
-                                <li>
-                                    <hr class="dropdown-divider">
+                                <li ng-show="isLogin"><a class="btn dropdown-item" ng-click="dangXuat()"
+                                        href="#home"><span class="fas fa-sign-out"></span> Đăng
+                                        xuất</a>
                                 </li>
-                                <li><button class="btn dropdown-item"><span class="fas fa-sign-out"></span> Đăng
-                                        xuất</button>
-                                </li>
-                                <li><button class="btn dropdown-item" data-bs-toggle="modal"
+                                <li ng-show="isLogin"><button class="btn dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#doiMatKhau"><span class="fas fa-repeat"></span> Đổi mật
                                         khẩu</button>
                                 </li>
-                                <li><button class="btn dropdown-item" data-bs-toggle="modal"
+                                <li ng-show="isLogin"><button class="btn dropdown-item" data-bs-toggle="modal"
                                         data-bs-target="#capNhat"><span class="fas fa-file"></span> Cập nhật tài
                                         khoản</a>
+                                </li>
+                                <li ng-show="isLogin"><a class="btn dropdown-item" href="#lichSu"><span
+                                            class="fas fa-file"></span> Lịch sử</a>
                                 </li>
                             </ul>
                         </li>
@@ -109,96 +143,23 @@
             </div>
         </nav>
         <div class="row">
-            <article class="col-md-9">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-6 mt-3">
-                        <div class="card text-center">
-                            <p class="card-header">
-                                Lập trình Android nâng cao
-                            </p>
-                            <div class="card-body">
-                                <img src="images/logos/ADAV.jpg" alt="" class="card-img-top w-50">
-                            </div>
-                            <a href="#" class="btn btn-primary">Học ngay</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <div class="card text-center">
-                            <p class="card-header">
-                                Xây dựng trang Web
-                            </p>
-                            <div class="card-body">
-                                <img src="images/logos/WEBU.jpg" alt="" class="card-img-top w-50">
-                            </div>
-                            <a href="#" class="btn btn-primary">Học ngay</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row d-flex justify-content-center mt-3">
-                    <div class="col-md-6 mt-3">
-                        <div class="card text-center">
-                            <p class="card-header">
-                                Cơ sở dữ liệu
-                            </p>
-                            <div class="card-body">
-                                <img src="images/logos/DBBS.png" alt="" class="card-img-top w-50">
-                            </div>
-                            <a href="#" class="btn btn-primary">Học ngay</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <div class="card text-center">
-                            <p class="card-header">
-                                SQL Sever
-                            </p>
-                            <div class="card-body">
-                                <img src="images/logos/DBAV.png" alt="" class="card-img-top w-50">
-                            </div>
-                            <a href="#" class="btn btn-primary">Học ngay</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center mt-3">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link link-dark" href="#" aria-label="Previous">
-                                    <span class="fas fa-backward"></span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link link-dark" href="#"><span
-                                        class="fas fa-backward-step"></span></a></li>
-                            <li class="page-item"><a class="page-link link-dark" href="#"><span
-                                        class="fas fa-forward-step"></span></a></li>
-                            <li class="page-item">
-                                <a class="page-link link-dark" href="#" aria-label="Next">
-                                    <span class="fas fa-forward"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+            <article class="col-md-9" ng-view ng-controller="homeController">
+
             </article>
             <aside class="col-md-3 mt-3">
                 <div class="card">
                     <h6 class="card-header">
-                        <span class="fas fa-list"></span>
-                        DANH MỤC MÔN HỌC
+                        <a class="nav-link" data-bs-toggle="collapse" href="#aside" role="button" aria-expanded="false"
+                            aria-controls="collapseExample">
+                            <span class="fas fa-list"></span>
+                            DANH MỤC MÔN HỌC
+                        </a>
                     </h6>
-                    <div class="list-group list-group-flush">
-                        <a class="list-group-item" href="#">Lập trình Android nâng cao</a>
-                        <a class="list-group-item" href="#">Xây dựng trang Web</a>
-                        <a class="list-group-item" href="#">Cơ sở dữ liệu</a>
-                        <a class="list-group-item" href="#">SQL Sever</a>
-                        <a class="list-group-item" href="#">Internet Marketing</a>
-                        <a class="list-group-item" href="#">Lập trình hướng đối tượng với Java</a>
-                        <a class="list-group-item" href="#">Lập trình PHP</a>
-                        <a class="list-group-item" href="#">Điện toán đám mây</a>
-                        <a class="list-group-item" href="#">Lập trình Android cơ bản</a>
-                        <a class="list-group-item" href="#">Lập trình game 2D</a>
-                        <a class="list-group-item" href="#">Thiết kế giao diện trên Android</a>
-                        <a class="list-group-item" href="#">Thiết kế Web cho điện thoại di động</a>
-                        <a class="list-group-item" href="#">Lập trình ASP.NET</a>
+                    <div class="collapse" id="aside">
+                        <div class="list-group list-group-flush">
+                            <a class="list-group-item" ng-repeat="s in subjects" href="#quiz/{{s.Id}}"
+                                ng-class="{disabledLink: !isLogin || student.role==0}">{{s.Name}}</a>
+                        </div>
                     </div>
                 </div>
             </aside>
@@ -206,44 +167,14 @@
         <footer class="mt-3">
             <div class="d-flex align-items-center justify-content-center bg-secondary">
                 <img src="images/fpt.png" alt="">&nbsp;
-                <span class="text-l">Trịnh Tiến Lực PH17307</span>
+                <span class="text-black">Trịnh Tiến Lực PH17307</span>
             </div>
-            <!-- Messenger Plugin chat Code -->
-            <div id="fb-root"></div>
-
-            <!-- Your Plugin chat code -->
-            <div id="fb-customer-chat" class="fb-customerchat">
-            </div>
-
-            <script>
-                var chatbox = document.getElementById('fb-customer-chat');
-                chatbox.setAttribute("page_id", "103824075536894");
-                chatbox.setAttribute("attribution", "biz_inbox");
-            </script>
-
-            <!-- Your SDK code -->
-            <script>
-                window.fbAsyncInit = function () {
-                    FB.init({
-                        xfbml: true,
-                        version: 'v12.0'
-                    });
-                };
-
-                (function (d, s, id) {
-                    var js, fjs = d.getElementsByTagName(s)[0];
-                    if (d.getElementById(id)) return;
-                    js = d.createElement(s); js.id = id;
-                    js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
-                    fjs.parentNode.insertBefore(js, fjs);
-                }(document, 'script', 'facebook-jssdk'));
-            </script>
         </footer>
         <!--modal Đăng ký-->
         <div class="modal fade" id="dangKy" tabindex="-1" aria-labelledby="modalDangKy" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="">
+                    <form name="form_dangKy" ng-submit="dangKy($event)">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modelDangKy"><span class="fas fa-sign"></span> Đăng ký
                             </h5>
@@ -255,36 +186,97 @@
                                 <h3>Đăng Ký Tài Khoản</h3>
                                 <small>Tham gia và học tập</small>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 mt-2">
-                                    <label for="name">Họ của bạn <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="name">
+                            <div class="row mt-2">
+                                <label for="fullnameDangky">Họ tên <span class="text-danger">*</span></label>
+                                <div>
+                                    <input name="fullnameDangky" type="text" class="form-control" id="fullnameDangky"
+                                        ng-model="newAcc.fullname" required>
                                 </div>
-                                <div class="col-md-6 mt-2">
-                                    <label for="ho">Tên của bạn <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="ho">
+                                <small class="text-danger"
+                                    ng-show="form_dangKy.fullnameDangky.$error.required && form_dangKy.fullnameDangky.$touched">Vui
+                                    lòng nhập họ tên</small>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="ngaySinhDangky">Ngày sinh <span class="text-danger">*</span></label>
+                                <div>
+                                    <input type="text" class="form-control" id="ngaySinhDangky"
+                                        ng-model="newAcc.birthday" required
+                                        ng-pattern="/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/"
+                                        name="ngaySinhDangky">
+                                </div>
+                                <small class="text-danger"
+                                    ng-show="form_dangKy.ngaySinhDangky.$error.pattern && form_dangKy.ngaySinhDangky.$touched">Không
+                                    đúng định dạng ngày tháng năm</small>
+                                <small class="text-danger"
+                                    ng-show="form_dangKy.ngaySinhDangky.$error.required && form_dangKy.ngaySinhDangky.$touched">Vui
+                                    lòng nhập ngày sinh</small>
+                            </div>
+                            <div class="mt-2">
+                                <label for="gtDangKy">Giới tính</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                        id="namDangKy" value="true" ng-model="newAcc.gender" checked>
+                                    <label class="form-check-label" for="nam">Nam</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nuDangKy"
+                                        value="false" ng-model="newAcc.gender">
+                                    <label class="form-check-label" for="nu">Nu</label>
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <label for="mail">Email <span class="text-danger">*</span></label>
+                                <label for="emailDangky">Email <span class="text-danger">*</span></label>
                                 <div>
-                                    <input type="email" class="form-control" id="mail">
+                                    <input type="email" class="form-control" name="emailDangky" id="emailDangky"
+                                        ng-model="newAcc.email" required>
                                 </div>
+                                <small class="text-danger"
+                                    ng-show="form_dangKy.emailDangky.$error.email && form_dangKy.emailDangky.$touched">Không
+                                    đúng định dạng email</small>
+                                <small class="text-danger"
+                                    ng-show="form_dangKy.emailDangky.$error.required && form_dangKy.emailDangky.$touched">Vui
+                                    lòng nhập email</small>
                             </div>
                             <div class="row mt-2">
-                                <label for="pass">Mật khẩu <span class="text-danger">*</span></label>
+                                <label for="taiKhoanDangKy">Tài khoản <span class="text-danger">*</span></label>
                                 <div>
-                                    <input type="password" class="form-control" id="pass">
+                                    <input type="text" class="form-control" id="taiKhoanDangKy"
+                                        ng-model="newAcc.username" required name="taiKhoanDangKy"
+                                        ng-pattern="/^[A-z_0-9](\w|\.|_){5,32}$/">
                                 </div>
+                                <small class="text-danger"
+                                    ng-show="form_dangKy.taiKhoanDangKy.$error.required && form_dangKy.taiKhoanDangKy.$touched">Vui
+                                    lòng nhập Tài khoản</small>
+                                <small class="text-danger"
+                                    ng-show="form_dangKy.taiKhoanDangKy.$error.pattern && form_dangKy.taiKhoanDangKy.$touched">Tên
+                                    tài khoản gồm số ký tự và dấu_ dài 5-31 ký tụ</small>
                             </div>
                             <div class="row mt-2">
-                                <label for="xacNhan">Xác nhận mật khẩu <span class="text-danger">*</span></label>
+                                <label for="passDangKy">Mật khẩu <span class="text-danger">*</span></label>
                                 <div>
-                                    <input type="password" class="form-control" id="xacNhan">
+                                    <input type="password" class="form-control" id="passDangKy"
+                                        ng-model="newAcc.password" required name="passDangKy"
+                                        ng-pattern="/^([A-Za-z0-9])([\w_\.!@#$%^&*()]+){5,31}$/">
                                 </div>
+                                <small class="text-danger"
+                                    ng-show="form_dangKy.passDangKy.$error.required && form_dangKy.passDangKy.$touched">Vui
+                                    lòng nhập mật khẩu</small>
+                                <small class="text-danger"
+                                    ng-show="form_dangKy.passDangKy.$error.pattern && form_dangKy.passDangKy.$touched">Mật
+                                    khẩu từ 5-21 ký tự và không chứa khỏang trắng</small>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="xacNhanDangKy">Xác nhận mật khẩu <span class="text-danger">*</span></label>
+                                <div>
+                                    <input type="password" class="form-control" id="xacNhanDangKy"
+                                        ng-model="xacNhanDangKy" name="xacNhanDangKy" required>
+                                </div>
+                                <small class="text-danger"
+                                    ng-show="xacNhanDangKy !== newAcc.password && form_dangKy.xacNhanDangKy.$touched">Mật
+                                    khẩu xác nhận không đúng</small>
                             </div>
                             <div class="mt-2 form-check">
-                                <input type="checkbox" class="form-check-input" id="check" value="" checked>
+                                <input type="checkbox" class="form-check-input" id="check" value="" checked disabled>
                                 <label for="check" class="form-check-label"><small>Tôi đồng ý với mọi <a href="#">điều
                                             khoản dịch vụ</a></small></label>
                             </div>
@@ -295,9 +287,11 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                ng-click="huyDangKy()">Huỷ
                                 bỏ</button>
-                            <button type="button" class="btn btn-primary">Đăng ký</button>
+                            <button type="submit" class="btn btn-primary" ng-disabled="form_dangKy.$invalid">Đăng
+                                ký</button>
                         </div>
                     </form>
                 </div>
@@ -307,7 +301,7 @@
         <div class="modal fade" id="dangNhap" tabindex="-1" aria-labelledby="modelDangNhap" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="">
+                    <form name="formDangNhap">
                         <div class="modal-header">
                             <h5 class="modal-title" id="DangNhapLabel"><span class="fas fa-right-to-bracket"></span>
                                 Đăng nhập
@@ -319,12 +313,22 @@
                                 <img src="images/fpt.png" alt="">
                             </div>
                             <div class="mt-5">
-                                <label for="emailDangNhap">Email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="emailDangNhap">
+                                <label for="taiKhoanDangNhap">Tài khoản <span class="text-danger">*</span></label>
+                                <input ng-model="account.name" type="text" class="form-control" id="taiKhoanDangNhap"
+                                    name="taiKhoanDangNhap" required>
+                                <small
+                                    ng-show="formDangNhap.taiKhoanDangNhap.$invalid && formDangNhap.taiKhoanDangNhap.$touched"
+                                    class="text-danger">Vui
+                                    lòng nhập tên tài khoản</small>
                             </div>
                             <div class="mt-2">
                                 <label for="passDangNhap">Mật khẩu <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="passDangNhap">
+                                <input ng-model="account.pass" type="password" class="form-control" id="passDangNhap"
+                                    name="passDangNhap" required>
+                                <small
+                                    ng-show="formDangNhap.passDangNhap.$invalid && formDangNhap.passDangNhap.$touched"
+                                    class="text-danger">Vui
+                                    lòng nhập mật khẩu</small>
                             </div>
                             <div>
                                 <a data-bs-dismiss="modal" data-bs-toggle="modal" href="#quenMatKhau"><small>Quên mật
@@ -336,7 +340,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Đăng nhập</button>
+                            <button ng-disabled="formDangNhap.$invalid" type="button" class="btn btn-primary"
+                                ng-click="login()">Đăng nhập</button>
                         </div>
                     </form>
                 </div>
@@ -346,7 +351,7 @@
         <div class="modal fade" id="quenMatKhau" tabindex="-1" aria-labelledby="modelQuenMatKhau" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="">
+                    <form action="" name="formQMK" ng-submit="quenMatKhau($event)">
                         <div class="modal-header">
                             <h5 class="modal-title" id="QuenMatKhauLabel"><span class="fas fa-question"></span> Quên mật
                                 khẩu
@@ -357,18 +362,37 @@
                             <div align="center">
                                 <img src="images/fpt.png" alt="">
                                 <div>
-                                    <small class="mt-3">Nhập email tại đây. Chúng tôi sẽ gửi mã xác nhận đến email của
-                                        bạn</small>
+                                    <small class="mt-3">Nhập email và tên tài khoản tại đây. Chúng tôi sẽ gửi bạn mật
+                                        khẩu</small>
                                 </div>
                             </div>
                             <div class="mt-3">
+                                <label for="taiKhoanQMK">Tài khoản <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="taiKhoanQMK" name="taiKhoanQMK" required
+                                    ng-model="qmk.user" autocomplete="off">
+                                <small class="text-danger"
+                                    ng-show="formQMK.taiKhoanQMK.$invalid && formQMK.taiKhoanQMK.$touched">Vui lòng nhập
+                                    tài khoản</small>
+                            </div>
+                            <div class="mt-3">
                                 <label for="emailQMK">Email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="emailQMK">
+                                <input type="email" class="form-control" id="emailQMK" name="emailQMK" required
+                                    ng-model="qmk.email" autocomplete="off">
+                                <small class="text-danger"
+                                    ng-show="formQMK.emailQMK.$error.email && formQMK.emailQMK.$touched">Vui lòng nhập
+                                    đúng định dạng email</small>
+                                <small class="text-danger"
+                                    ng-show="formQMK.emailQMK.$error.required && formQMK.emailQMK.$touched">Vui lòng
+                                    nhập email</small>
+                            </div>
+                            <div class="mt-3">
+                                <input type="text" class="form-control" disabled ng-model="qmk.pass">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ bỏ</button>
-                            <button type="button" class="btn btn-primary">Xác nhận</button>
+                            <button type="submit" class="btn btn-primary" ng-disabled="formQMK.$invalid">Xác
+                                nhận</button>
                         </div>
                     </form>
                 </div>
@@ -378,7 +402,7 @@
         <div class="modal fade" id="doiMatKhau" tabindex="-1" aria-labelledby="modelDoiMatKhau" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="">
+                    <form action="" name="formDMK" ng-submit="doiMatKhau($event)">
                         <div class="modal-header">
                             <h5 class="modal-title" id="doiMatKhauLabel"><span class="fas fa-user-alt-slash"></span>
                                 Đổi mật khẩu
@@ -392,25 +416,44 @@
                             <div class="row mt-2">
                                 <label for="passCu">Mật khẩu cũ <span class="text-danger">*</span></label>
                                 <div>
-                                    <input type="password" class="form-control" id="passCu">
+                                    <input type="password" class="form-control" id="passCu" required name="passCu"
+                                        ng-model="dmk.passCu">
                                 </div>
+                                <small class="text-danger"
+                                    ng-show="formDMK.passCu.$error.required && formDMK.passCu.$touched">Vui
+                                    lòng nhập mật khẩu</small>
                             </div>
                             <div class="row mt-2">
                                 <label for="passMoi">Mật khẩu mới <span class="text-danger">*</span></label>
                                 <div>
-                                    <input type="password" class="form-control" id="passMoi">
+                                    <input type="password" class="form-control" id="passMoi" required name="passMoi"
+                                        ng-model="dmk.passMoi" ng-pattern="/^([A-Za-z0-9])([\w_\.!@#$%^&*()]+){5,31}$/">
                                 </div>
+                                <small class="text-danger"
+                                    ng-show="formDMK.passMoi.$error.required && formDMK.passMoi.$touched">Vui
+                                    lòng nhập mật khẩu</small>
+                                <small class="text-danger"
+                                    ng-show="formDMK.passMoi.$error.pattern && formDMK.passMoi.$touched">Mật
+                                    khẩu từ 5-21 ký tự và không chứa khỏang trắng</small>
                             </div>
                             <div class="row mt-2">
                                 <label for="xnPassMoi">Xác nhận mật khẩu <span class="text-danger">*</span></label>
                                 <div>
-                                    <input type="password" class="form-control" id="xnPassMoi">
+                                    <input type="password" class="form-control" id="xnPassMoi" required name="xnPassMoi"
+                                        ng-model="dmk.xnPassMoi">
                                 </div>
+                                <small class="text-danger"
+                                    ng-show="formDMK.xnPassMoi.$error.required && formDMK.xnPassMoi.$touched">Vui
+                                    lòng nhập mật khẩu</small>
+                                <small class="text-danger"
+                                    ng-show="passMoi !== xnPassMoi && formDMK.xnPassMoi.$touched">Mật khẩu không trùng
+                                    khớp</small>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ bỏ</button>
-                            <button type="button" class="btn btn-primary">Xác nhận</button>
+                            <button type="submit" class="btn btn-primary" ng-disabled="formDMK.$invalid">Xác
+                                nhận</button>
                         </div>
                     </form>
                 </div>
@@ -420,7 +463,7 @@
         <div class="modal fade" id="capNhat" tabindex="-1" aria-labelledby="modelCapNhat" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="">
+                    <form action="" name="formCapNhat" ng-submit="capNhat($event)">
                         <div class="modal-header">
                             <h5 class="modal-title" id="capNhatLabel"><span class="fas fa-sign"></span> Cập nhật tài
                                 khoản
@@ -432,76 +475,60 @@
                                 <img src="images/fpt.png" alt="">
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mt-2">
-                                    <label for="nameTt">Họ của bạn <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="nameTt">
-                                </div>
-                                <div class="col-md-6 mt-2">
-                                    <label for="hoTt">Tên của bạn <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="hoTt">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <label for="anh">Ảnh đại diện</label>
+                                <label for="nameTt">Họ tên của bạn <span class="text-danger">*</span></label>
                                 <div>
-                                    <input type="file" class="form-control" id="anh">
+                                    <input type="text" class="form-control" id="nameTt" name="nameTt" required
+                                        ng-model="tt.fullname">
                                 </div>
+                                <small class="text-danger"
+                                    ng-show="formCapNhat.nameTt.$error.required && form_dangKy.nameTt.$touched">Không
+                                    đúng định dạng email</small>
                             </div>
                             <div class="row mt-2">
                                 <label for="mailTt">Email <span class="text-danger">*</span></label>
                                 <div>
-                                    <input type="email" class="form-control" id="mailTt">
+                                    <input type="email" class="form-control" id="mailTt" name="mailTt" required
+                                        ng-model="tt.email">
                                 </div>
-                            </div>
-                            <div class="row mt-2">
-                                <label for="dthoai">Điện thoại</label>
-                                <div>
-                                    <input type="tel" class="form-control" id="dthoai">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mt-2">
-                                    <label for="ngaySinh">Ngày sinh</label>
-                                    <input type="date" class="form-control" id="ngaySinh">
-                                </div>
+                                <small class="text-danger"
+                                    ng-show="formCapNhat.mailTt.$error.email && formCapNhat.mailTt.$touched">Không
+                                    đúng định dạng email</small>
+                                <small class="text-danger"
+                                    ng-show="formCapNhat.mailTt.$error.required && formCapNhat.mailTt.$touched">Vui
+                                    lòng nhập email</small>
                             </div>
                             <div class="mt-2">
                                 <label for="gt">Giới tính</label>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nam"
-                                        value="nam">
+                                        value="true" ng-model="tt.gender" ng-checked="tt.gender==true">
                                     <label class="form-check-label" for="nam">Nam</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nu"
-                                        value="nu">
+                                        value="false" ng-model="tt.gender" ng-checked="tt.gender==false">
                                     <label class="form-check-label" for="nu">Nu</label>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="khac"
-                                        value="khac">
-                                    <label class="form-check-label" for="khac">Khác</label>
-                                </div>
                             </div>
-                            <div>
-                                <label for="nganh">Ngành nghề</label>
-                                <select id="nganh">
-                                    <option selected disabled>--Chọn ngành--</option>
-                                    <option value="hs">Học sinh</option>
-                                    <option value="sv">Sinh viên</option>
-                                    <option value="cn">Đã đi làm</option>
-                                </select>
-                            </div>
-                            <div class="row">
-                                <label for="moTa">Mô tả bản thân </label>
+                            <div class="mt-2">
+                                <label for="ngaySinhtt">Ngày sinh <span class="text-danger">*</span></label>
                                 <div>
-                                    <textarea id="moTa" rows="5" class="form-control"></textarea>
+                                    <input type="text" class="form-control" id="ngaySinhtt" name="ngaySinhtt"
+                                        ng-model="tt.birthday" required
+                                        ng-pattern="/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/">
                                 </div>
+                                <small class="text-danger"
+                                    ng-show="formCapNhat.ngaySinhtt.$error.pattern && formCapNhat.ngaySinhtt.$touched">Không
+                                    đúng định dạng ngày tháng năm</small>
+                                <small class="text-danger"
+                                    ng-show="formCapNhat.ngaySinhtt.$error.required && formCapNhat.ngaySinhtt.$touched">Vui
+                                    lòng nhập ngày sinh</small>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Lưu</button>
-                            <button type="button" class="btn btn-primary">Lưu</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                            <button type="submit" class="btn btn-primary"
+                                ng-disablde="formCapNhat.$invalid">Lưu</button>
                         </div>
                     </form>
                 </div>
@@ -512,6 +539,14 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/angularjs.min.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/app.js"></script>
+    <script src="controller/homeController.js"></script>
+    <script src="controller/quizController.js"></script>
+    <script src="controller/btController.js"></script>
+    <script src="controller/tkController.js"></script>
+    <script src="controller/hisController.js"></script>
     <!--script-->
 </body>
 

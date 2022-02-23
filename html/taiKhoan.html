@@ -1,0 +1,163 @@
+<div class="card mt-3">
+    <h3 class="card-header">
+        Quản lý tài khoản
+    </h3>
+    <div class="card-body">
+        <form name="formDangKy">
+            <div class="row mt-2">
+                <label for="fullnameDangky">Họ tên <span class="text-danger">*</span></label>
+                <div>
+                    <input name="fullnameDangky" type="text" class="form-control" id="fullnameDangky"
+                        ng-model="new.fullname" required>
+                </div>
+                <small class="text-danger"
+                    ng-show="formDangKy.fullnameDangky.$error.required && formDangKy.fullnameDangky.$touched">Vui
+                    lòng nhập họ tên</small>
+            </div>
+            <div class="row mt-2">
+                <label for="ngaySinhDangky">Ngày sinh <span class="text-danger">*</span></label>
+                <div>
+                    <input type="text" class="form-control" id="ngaySinhDangky" ng-model="new.birthday" required
+                        ng-pattern="/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/"
+                        name="ngaySinhDangky">
+                </div>
+                <small class="text-danger"
+                    ng-show="formDangKy.ngaySinhDangky.$error.pattern && formDangKy.ngaySinhDangky.$touched">Không
+                    đúng định dạng ngày tháng năm</small>
+                <small class="text-danger"
+                    ng-show="formDangKy.ngaySinhDangky.$error.required && formDangKy.ngaySinhDangky.$touched">Vui
+                    lòng nhập ngày sinh</small>
+            </div>
+            <div class="row mt-1">
+                <div class="col-6 mt-2">
+                    <label for="gtDangKy">Giới tính</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="namDangKy"
+                            value="true" ng-model="new.gender" ng-checked="new.gender==true">
+                        <label class="form-check-label" for="namDangKy">Nam</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nuDangKy"
+                            value="false" ng-model="new.gender" ng-checked="new.gender==false">
+                        <label class="form-check-label" for="nuDangKy">Nu</label>
+                    </div>
+                </div>
+                <div class="col-6 mt-2">
+                    <label for="vtDangKy">Vai trò</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="vaiTro" id="admin" value="0"
+                            ng-model="new.role" ng-checked="new.role==0">
+                        <label class="form-check-label" for="nam">Quản lý</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="vaiTro" id="sv" value="1" ng-model="new.role"
+                            ng-checked="new.role==1" checked>
+                        <label class="form-check-label" for="nu">Sinh viên</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <label for="emailDangky">Email <span class="text-danger">*</span></label>
+                <div>
+                    <input type="email" class="form-control" name="emailDangky" id="emailDangky" ng-model="new.email"
+                        required>
+                </div>
+                <small class="text-danger"
+                    ng-show="formDangKy.emailDangky.$error.email && formDangKy.emailDangky.$touched">Không
+                    đúng định dạng email</small>
+                <small class="text-danger"
+                    ng-show="formDangKy.emailDangky.$error.required && formDangKy.emailDangky.$touched">Vui
+                    lòng nhập email</small>
+            </div>
+            <div class="row mt-2">
+                <label for="taiKhoanDangKy">Tài khoản <span class="text-danger">*</span></label>
+                <div>
+                    <input type="text" class="form-control" id="taiKhoanDangKy" ng-model="new.username" required
+                        name="taiKhoanDangKy" ng-pattern="/^[A-z_0-9](\w|\.|_){5,32}$/">
+                </div>
+                <small class="text-danger"
+                    ng-show="formDangKy.taiKhoanDangKy.$error.required && formDangKy.taiKhoanDangKy.$touched">Vui
+                    lòng nhập Tài khoản</small>
+                <small class="text-danger"
+                    ng-show="formDangKy.taiKhoanDangKy.$error.pattern && formDangKy.taiKhoanDangKy.$touched">Tên
+                    tài khoản gồm số ký tự và dấu_ dài 5-31 ký tụ</small>
+            </div>
+            <div class="row mt-2" ng-disabled="isSua">
+                <label for="passDangKy">Mật khẩu <span class="text-danger">*</span></label>
+                <div>
+                    <input type="password" class="form-control" id="passDangKy" ng-model="new.password" required
+                        name="passDangKy" ng-pattern="/^([A-Za-z0-9])([\w_\.!@#$%^&*()]+){5,31}$/">
+                </div>
+                <small class="text-danger"
+                    ng-show="formDangKy.passDangKy.$error.required && formDangKy.passDangKy.$touched">Vui
+                    lòng nhập mật khẩu</small>
+                <small class="text-danger"
+                    ng-show="formDangKy.passDangKy.$error.pattern && formDangKy.passDangKy.$touched">Mật
+                    khẩu từ 5-21 ký tự và không chứa khỏang trắng</small>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary" ng-disabled="formDangKy.$invalid" ng-click="them()"
+                ng-show="!isSua">Thêm</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="formDangKy.$invalid" ng-click="sua()"
+                ng-show="isSua">Sửa</button>
+            <button type="button" class="btn btn-secondary" ng-click="moi()">Mới</button>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Fullname</th>
+                <th>Birthday</th>
+                <th>Gender</th>
+                <th>Role</th>
+                <th colspan="2">Activity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="u in $parent.users">
+                <td>{{u.username}}</td>
+                <td>{{u.fullname}}</td>
+                <td>{{u.birthday}}</td>
+                <td>
+                    <p ng-show="u.gender=='true'||u.gender==true">Nam</p>
+                    <p ng-show="u.gender=='false'||u.gender==false">Nữ</p>
+                </td>
+                <td>
+                    <p ng-if="u.role==0||u.role=='0'">Quản lý</p>
+                    <p ng-if="u.role==1||u.role=='1'">Sinh viên</p>
+                </td>
+                <td>
+                    <button class="btn btn-primary" ng-click="suaDoi($index)">Sửa</button>
+                    <button class="btn btn-danger" data-bs-toggle="modal" ng-click="getId($index)"
+                        data-bs-target="#xoaModel{{u.Id}}">Xoá</button>
+                </td>
+                <div class="modal fade" id="xoaModel{{u.Id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Assignment</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Bạn có chắc muốn xoá tài khoản này?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                <button type="button" class="btn btn-danger" ng-click="xoa()"
+                                    data-bs-dismiss="modal">Xoá</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+        </tbody>
+    </table>
+</div>

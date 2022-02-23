@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-center mt-3">
+    <button class="btn btn-primary" ng-click="Start()">Bắt đầu làm bài</button>
+</div>
+<div class="d-flex justify-content-center mt-3">
+    <span class="badge bg-secondary fs-4">{{m}}:{{s}}</span>
+</div>
+<div class="card mt-3" ng-hide="!isStart">
+    <div class="card-header d-flex justify-content-between bg-primary">
+        <h4 class="text-white">{{monhoc.Name}}</h4>
+        <span class="badge bg-secondary fs-4" ng-show="dapAn.isAnswer">{{dapAn.isCorrect}}</span>
+        <span class="badge bg-secondary fs-4">{{page+1}}/{{maxPage+1}}</span>
+    </div>
+    <div class="card-body">
+        <div ng-repeat="q in cauHois|limitTo:1:begin">
+            <div class="row">
+                <h5>{{q.Text}}</h5>
+            </div>
+            <div class="row" ng-repeat="a in q.Answers">
+                <div class="form-check ms-3">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="{{a.Id}}" value="{{a.Id}}"
+                        ng-model="dapAn.answer" ng-disabled="dapAn.isAnswer">
+                    <label class="form-check-label" for="{{a.Id}}">
+                        {{a.Text}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+        <div>
+            <button class="btn btn-primary me-1" ng-click="first()" ng-disabled="page==0">
+                <span class="fas fa-backward"></span>
+            </button>
+            <button class="btn btn-primary me-1" ng-click="prev()" ng-disabled="page==0"><span
+                    class="fas fa-backward-step"></span></button>
+            <button class="btn btn-primary me-1" ng-click="next()" ng-disabled="page==maxPage"><span
+                    class="fas fa-forward-step"></span></button>
+            <button class="btn btn-primary" ng-click="last()" ng-disabled="page==maxPage">
+                <span class="fas fa-forward"></span>
+            </button>
+        </div>
+        <div>
+            <span class="badge bg-secondary fs-4">Điểm:{{diem}}/{{maxPage+1}}</span>
+        </div>
+        <div>
+            <button class="btn btn-success" ng-click="check()" ng-disabled="dapAn.isAnswer || dapAn.answer==null ">
+                Check
+            </button>
+            <button class="btn btn-success" ng-disabled="isKetThuc" data-bs-toggle="modal"
+                data-bs-target="#ketThucModel">
+                Kết thúc
+            </button>
+        </div>
+    </div>
+</div>
+<div class="card mt-3" ng-show="isKetThuc">
+    <h4 class="card-header">
+        Bạn đã hoàn thành bài thi!
+    </h4>
+    <div class="card-body">
+        <div align="center">
+            <img src="../images/fpt.png" alt="">
+        </div>
+        <div class="text-center">
+            <span class="fs-2 text-success">{{diem}}</span><span class="fs-1 fw-bold text-success">/{{maxPage+1}}</span>
+        </div>
+    </div>
+    <div class="card-footer">
+        <small class="text-danger">Hãy làm lại lần nữa để xem có đạt điểm tối đa không nào</small>
+    </div>
+</div>
+<div class="modal fade" id="ketThucModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Assignment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc muốn kết thúc bài kiểm tra?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-danger" ng-click="ketThuc()">Kết thúc</button>
+            </div>
+        </div>
+    </div>
+</div>
