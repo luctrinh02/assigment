@@ -33,12 +33,12 @@
                     <label for="gtDangKy">Giới tính</label>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="namDangKy"
-                            value="true" ng-model="new.gender" ng-checked="new.gender==true">
+                            value="true" ng-model="new.gender" ng-checked="new.gender==true||new.gender=='true'">
                         <label class="form-check-label" for="namDangKy">Nam</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="nuDangKy"
-                            value="false" ng-model="new.gender" ng-checked="new.gender==false">
+                            value="false" ng-model="new.gender" ng-checked="new.gender==false||new.gender=='false'">
                         <label class="form-check-label" for="nuDangKy">Nu</label>
                     </div>
                 </div>
@@ -46,13 +46,13 @@
                     <label for="vtDangKy">Vai trò</label>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="vaiTro" id="admin" value="0"
-                            ng-model="new.role" ng-checked="new.role==0">
-                        <label class="form-check-label" for="nam">Quản lý</label>
+                            ng-model="new.role" ng-checked="new.role==0||new.role=='0'">
+                        <label class="form-check-label" for="admin">Quản lý</label>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="vaiTro" id="sv" value="1" ng-model="new.role"
-                            ng-checked="new.role==1" checked>
-                        <label class="form-check-label" for="nu">Sinh viên</label>
+                            ng-checked="new.role==1||new.role=='1'" checked>
+                        <label class="form-check-label" for="sv">Sinh viên</label>
                     </div>
                 </div>
             </div>
@@ -137,6 +137,7 @@
                     <button class="btn btn-danger" data-bs-toggle="modal" ng-click="getId($index)"
                         data-bs-target="#xoaModel{{u.Id}}">Xoá</button>
                 </td>
+                <!-- model xoá -->
                 <div class="modal fade" id="xoaModel{{u.Id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog">

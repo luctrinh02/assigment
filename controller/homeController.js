@@ -4,7 +4,7 @@ app.controller("homeController", function ($scope, $http) {
     $scope.begin = 0;
     $scope.maxPage = 0;
     $scope.page = 0;
-    $http.get("https://621322cdf43692c9c6faeb5b.mockapi.io/subjects").then(function (response) {
+    $http.get("https://621322cdf43692c9c6faeb5b.mockapi.io/Subjects").then(function (response) {
         $scope.subjects = response.data;
         $scope.maxPage = Math.ceil($scope.subjects.length / 4) - 1;
     });

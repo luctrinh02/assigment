@@ -29,10 +29,13 @@ app.controller(
         index: $scope.page,
         isAnswer: false,
       };
+      $scope.diem=0;
+      $scope.page=0;
       $scope.isKetThuc=false;
       $scope.isStart = true;
       $scope.dongHo();
-      $http
+      if($routeParams.name!="ADAV"&&$routeParams.name!="ADBS"){
+        $http
         .get("../db/Quizs/" + $routeParams.name + ".js")
         .then(function (response) {
           $scope.cauHois = response.data;
@@ -41,8 +44,19 @@ app.controller(
           console.log(response.data.length);
           begin = 0;
         });
+      }else{
+        $http
+        .get("https://621322cdf43692c9c6faeb5b.mockapi.io/" + $routeParams.name)
+        .then(function (response) {
+          $scope.cauHois = response.data;
+          $scope.maxPage = angular.copy($scope.cauHois.length) - 1;
+          maxPage = angular.copy($scope.cauHois.length) - 1;
+          console.log(response.data.length);
+          begin = 0;
+        });
+      }
       $http
-        .get("https://621322cdf43692c9c6faeb5b.mockapi.io/subjects")
+        .get("https://621322cdf43692c9c6faeb5b.mockapi.io/Subjects")
         .then(function (response) {
           $scope.monHocs = response.data;
           for (let i = 0; i < $scope.monHocs.length; i++) {
@@ -131,7 +145,7 @@ app.controller(
       $scope.$parent.isLoading = true;
       $http
         .put(
-          "https://621322cdf43692c9c6faeb5b.mockapi.io/Students/" +
+          "https://621322cdf43692c9c6faeb5b.mockapi.io/User/" +
             $scope.$parent.student.id,
           $scope.$parent.student
         )

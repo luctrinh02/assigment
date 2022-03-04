@@ -1,0 +1,103 @@
+<div class="card mt-3">
+    <form name="cauHoiForm">
+        <select class="card-header form-select" ng-model="id" ng-change="changeId()">
+            <option ng-repeat="s in $parent.subjects|limitTo:2" value="{{s.Id}}" class="form-control">{{s.Name}}
+            </option>
+        </select>
+        <div class="card-body">
+            <div class="mt-2">
+                <label for="name" class="form-label">Câu hỏi?</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="name" name="name" ng-model="quiz.Text" required
+                        autocomplete="off">
+                    <span for="name" class="input-group-text">?</span>
+                </div>
+                <small class="text-danger" ng-show="cauHoiForm.name.$invalid && cauHoiForm.name.$touched">Vui lòng nhập
+                    câu hỏi</small>
+            </div>
+            <div class="mt-2">
+                <label for="soLuong" class="form-label">Số lượng đáp án</label>
+                <input type="number" class="form-control" id="soLuong" name="soLuong" ng-model="soLuong" min="2" max="8"
+                    step="1" autocomplete="off" ng-change="changeSoLuong()" required>
+                <small class="text-danger" ng-show="cauHoiForm.soLuong.$error.min">Số lượng câu hỏi >=2</small>
+                <small class="text-danger" ng-show="cauHoiForm.soLuong.$error.max">Số lượng câu hỏi <= 8</small>
+                        <small class="text-danger" ng-show="cauHoiForm.soLuong.$error.required">Không bỏ trống</small>
+            </div>
+            <div class="mt-2" ng-repeat="n in quiz.Answers">
+                <label for="dapAn{{$index}}" class="form-label">Đáp án {{$index+1}}</label>
+                <input type="text" class="form-control" id="dapAn{{$index}}" name="dapAn{{$index}}"
+                    ng-model="quiz.Answers[$index].Text" required autocomplete="off">
+                <small class="text-danger"
+                    ng-show="cauHoiForm.dapAn{{$index}}.$invalid && cauHoiForm.dapAn{{$index}}.$touched">Không bỏ
+                    trống</small>
+            </div>
+            <div class="mt-2">
+                <label for="dapAn" class="form-label">Đáp án</label>
+                <input type="number" class="form-control" id="dapAn" name="dapAn" ng-model="dapAn" min="1"
+                    max="{{soLuong}}" step="1" autocomplete="off" required>
+                <small class="text-danger" ng-show="cauHoiForm.dapAn.$error.min">Đáp án đúng >=1</small>
+                <small class="text-danger" ng-show="cauHoiForm.dapAn.$error.max">Đáp án đúng <= {{soLuong}}</small>
+                        <small class="text-danger" ng-show="cauHoiForm.dapAn.$error.required">Không bỏ trống</small>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button ng-show="!isSua" ng-disabled="cauHoiForm.$invalid" ng-click="them()"
+                class="btn btn-primary">Thêm</button>
+            <button ng-show="isSua" ng-disabled="cauHoiForm.$invalid" ng-click="sua()"
+                class="btn btn-primary">Sửa</button>
+            <button class="btn btn-secondary" ng-click="moi()">Mới</button>
+        </div>
+    </form>
+</div>
+<div class="table-responsive mt-3">
+    <table class="table table-hover">
+        <thead>
+            <th>ID</th>
+            <th>Câu hỏi</th>
+            <th colspan="2"></th>
+        </thead>
+        <tr ng-repeat="ch in cauHois |limitTo:10:begin">
+            <td>{{ch.Id}}</td>
+            <td>{{ch.Text}}</td>
+            <td>
+                <button class="btn btn-primary" ng-click="suaDoi($index)">Sửa</button>
+            </td>
+            <td>
+                <button class="btn btn-danger" ng-click="getId($index)" data-bs-toggle="modal"
+                    data-bs-target="#xoaCh">Xoá</button>
+            </td>
+            <!-- model xoá -->
+            <div class="modal fade" id="xoaCh" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Assignment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Bạn có chắc muốn xoá câu hỏi này?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-danger" ng-click="xoa()"
+                                data-bs-dismiss="modal">Xoá</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tr>
+    </table>
+</div>
+<div class="d-flex justify-content-center">
+    <button class="btn btn-primary me-1" ng-click="first()" ng-disabled="page==0">
+        <span class="fas fa-backward"></span>
+    </button>
+    <button class="btn btn-primary me-1" ng-click="prev()" ng-disabled="page==0"><span
+            class="fas fa-backward-step"></span></button>
+    <button class="btn btn-primary me-1" ng-click="next()" ng-disabled="page==maxPage-1"><span
+            class="fas fa-forward-step"></span></button>
+    <button class="btn btn-primary" ng-click="last()" ng-disabled="page==maxPage-1">
+        <span class="fas fa-forward"></span>
+    </button>
+</div>

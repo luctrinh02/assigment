@@ -19,29 +19,34 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: "html/home.html",
       controller: "homeController",
     })
-    .when("/quiz/:name",{
+    .when("/quiz/:name", {
       templateUrl: "html/quiz.html",
       controller: "quizController",
     })
-    .when("/lichSu",{
+    .when("/lichSu", {
       templateUrl: "html/lichSu.html",
-      controller:"hisController",
+      controller: "hisController",
     })
-    .when("/taiKhoan",{
+    .when("/taiKhoan", {
       templateUrl: "html/taiKhoan.html",
-      controller:"tkController",
+      controller: "tkController",
+    })
+    .when("/cauHoi", {
+      templateUrl: "html/cauHoi.html",
+      controller: "chController",
     })
     .otherwise({
       redirectTo: "/home",
     });
 });
-app.controller("control", function ($scope, $http,$rootScope) {
+app.controller("control", function ($scope, $http, $rootScope) {
   $scope.taiKhoan = "Tài khoản";
   $scope.xacNhanDangKy = "";
   $scope.subjects = [];
-  $scope.tt={};
+  $scope.tt = {};
   $scope.users = [];
   $scope.newAcc = {
+    id: "",
     username: "",
     password: "",
     role: "1",
@@ -67,7 +72,7 @@ app.controller("control", function ($scope, $http,$rootScope) {
   $scope.account = { name: "", pass: "" }; //dùng khi đăng nhập
   $scope.isLoading = true;
   $http
-    .get("https://621322cdf43692c9c6faeb5b.mockapi.io/subjects")
+    .get("https://621322cdf43692c9c6faeb5b.mockapi.io/Subjects")
     .then(function (response) {
       $scope.subjects = response.data;
       $scope.isLoading = false;
@@ -77,7 +82,7 @@ app.controller("control", function ($scope, $http,$rootScope) {
   $scope.login = function () {
     $scope.isLoading = true;
     $http
-      .get("https://621322cdf43692c9c6faeb5b.mockapi.io/Students")
+      .get("https://621322cdf43692c9c6faeb5b.mockapi.io/User")
       .then(function (response) {
         console.log(response.data);
         $scope.users = response.data;
@@ -87,7 +92,7 @@ app.controller("control", function ($scope, $http,$rootScope) {
             $scope.account.pass == $scope.users[i].password
           ) {
             $scope.student = $scope.users[i];
-            $scope.tt=angular.copy($scope.student);
+            $scope.tt = angular.copy($scope.student);
             isLogged = true;
             break;
           } else {
@@ -114,7 +119,7 @@ app.controller("control", function ($scope, $http,$rootScope) {
     } else {
       $scope.isLoading = true;
       $http
-        .get("https://621322cdf43692c9c6faeb5b.mockapi.io/Students")
+        .get("https://621322cdf43692c9c6faeb5b.mockapi.io/User")
         .then(function (response) {
           $scope.users = response.data;
           $scope.isLoading = false;
@@ -128,9 +133,10 @@ app.controller("control", function ($scope, $http,$rootScope) {
           }
           if (!isHave) {
             $scope.isLoading = true;
+            $scope.newAcc.id = $scope.users[$scope.users.length - 1].id + 1;
             $http
               .post(
-                "https://621322cdf43692c9c6faeb5b.mockapi.io/Students",
+                "https://621322cdf43692c9c6faeb5b.mockapi.io/User",
                 $scope.newAcc
               )
               .then(function (response) {
@@ -146,6 +152,7 @@ app.controller("control", function ($scope, $http,$rootScope) {
                   schoolfee: "",
                   marks: [],
                 };
+                console.log(response);
                 $scope.isLoading = false;
               });
             $("#dangKy").modal("hide");
@@ -158,7 +165,7 @@ app.controller("control", function ($scope, $http,$rootScope) {
     $scope.isLogin = false;
     $scope.taiKhoan = "Tài Khoản";
     $scope.student = {};
-    $scope.tt={};
+    $scope.tt = {};
   };
   $scope.huyDangKy = function () {
     $scope.newAcc = {
@@ -179,7 +186,7 @@ app.controller("control", function ($scope, $http,$rootScope) {
     $scope.isLoading = true;
     let isQMK = false;
     $http
-      .get("https://621322cdf43692c9c6faeb5b.mockapi.io/Students")
+      .get("https://621322cdf43692c9c6faeb5b.mockapi.io/User")
       .then(function (response) {
         $scope.users = response.data;
         $scope.isLoading = false;
@@ -208,7 +215,7 @@ app.controller("control", function ($scope, $http,$rootScope) {
       $scope.isLoading = true;
       $http
         .put(
-          "https://621322cdf43692c9c6faeb5b.mockapi.io/Students/" +
+          "https://621322cdf43692c9c6faeb5b.mockapi.io/User/" +
             $scope.student.id,
           $scope.student
         )
@@ -221,19 +228,19 @@ app.controller("control", function ($scope, $http,$rootScope) {
         });
     }
   };
-  $scope.capNhat=function(event){
+  $scope.capNhat = function (event) {
     event.preventDefault();
     $scope.isLoading = true;
-    $scope.student=angular.copy($scope.tt);
+    $scope.student = angular.copy($scope.tt);
     $http
-        .put(
-          "https://621322cdf43692c9c6faeb5b.mockapi.io/Students/" +
-            $scope.student.id,
-          $scope.student
-        )
-        .then(function (response) {
-          $scope.isLoading = false;
-          alert("Đổi thông tin thành công");
-        });
-  }
+      .put(
+        "https://621322cdf43692c9c6faeb5b.mockapi.io/User/" + $scope.student.id,
+        $scope.student
+      )
+      .then(function (response) {
+        $scope.isLoading = false;
+        alert("Đổi thông tin thành công");
+      });
+  };
+  $scope.now=new Date();
 });

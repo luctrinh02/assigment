@@ -92,11 +92,22 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#mail"><span class="fas fa-envelope"></span> Góp ý</a>
                         </li>
-                        <li class="nav-item" ng-show="student.role==0">
-                            <a class="nav-link " href="#taiKhoan">
+                        <li class="nav-item dropdown" ng-show="student.role==0">
+                            <a class="nav-link dropdown-toggle" href="#" id="quanly" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="fas fa-circle-check"></span>
                                 Quản lý
                             </a>
+                            <ul class="dropdown-menu" aria-labelledby="quanLy">
+                                <li>
+                                    <a class="btn dropdown-item" href="#taiKhoan"><span class="fas fa-user"></span> Tài
+                                        khoản</a>
+                                </li>
+                                <li>
+                                    <a class="btn dropdown-item" href="#cauHoi"><span class="fas fa-question"></span>
+                                        Câu hỏi</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                     <div class="col-md-2 navbar-nav d-flex">
@@ -133,8 +144,12 @@
                                         data-bs-target="#capNhat"><span class="fas fa-file"></span> Cập nhật tài
                                         khoản</a>
                                 </li>
-                                <li ng-show="isLogin"><a class="btn dropdown-item" href="#lichSu"><span
-                                            class="fas fa-file"></span> Lịch sử</a>
+                                <li ng-show="isLogin && student.role==1"><a class="btn dropdown-item"
+                                        href="#lichSu"><span class="fas fa-file"></span> Lịch sử</a>
+                                </li>
+                                <li ng-show="isLogin">
+                                    <button class="btn dropdown-item" data-bs-toggle="modal" data-bs-target="#bxh"><span
+                                            class="fas fa-random"></span> Bảng xếp hạng</button>
                                 </li>
                             </ul>
                         </li>
@@ -534,6 +549,50 @@
                 </div>
             </div>
         </div>
+        <!-- modal bxh -->
+        <div class="modal fade" id="bxh" tabindex="-1" aria-labelledby="modelBxh" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="DangNhapLabel"><span class="fas fa-beer"></span>
+                            Top 3 chú ong chăm chỉ
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>Họ tên</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Email</th>
+                                    <th>Số lần làm bài</th>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in users|orderBy:'marks.length':'desc'|limitTo:3">
+                                        <td>
+                                            {{x.fullname}}
+                                        </td>
+                                        <td>
+                                            {{x.birthday}}
+                                        </td>
+                                        <td>
+                                            {{x.email}}
+                                        </td>
+                                        <td>
+                                            {{x.marks.length}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        Cập nhật lúc: {{now|date:'dd-MM-yyyy hh:mm:ss a'}}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!--script-->
     <script src="js/jquery.min.js"></script>
@@ -544,9 +603,9 @@
     <script src="js/app.js"></script>
     <script src="controller/homeController.js"></script>
     <script src="controller/quizController.js"></script>
-    <script src="controller/btController.js"></script>
     <script src="controller/tkController.js"></script>
     <script src="controller/hisController.js"></script>
+    <script src="controller/chController.js"></script>
     <!--script-->
 </body>
 
